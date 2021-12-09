@@ -29,7 +29,7 @@ namespace geoDistance
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<AddressContext>(options => options.UseSqlite("Data Source=./address.db"));
+            services.AddDbContext<AddressContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
