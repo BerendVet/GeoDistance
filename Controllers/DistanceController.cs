@@ -24,8 +24,6 @@ namespace GeoDistance.Controllers
         [HttpGet("GetDistanceBetweenAddresses")]
         public async Task<ActionResult<string>> GetDistance([FromQuery] Guid from, [FromQuery] Guid to)
         {
-            if (from.Equals(to)) return "0.00 Km";
-
             var fromAddress = _dbContext.addresses.Where(address => address.Id == from).SingleOrDefault();
             var toAddress = _dbContext.addresses.Where(address => address.Id == to).SingleOrDefault();
 
@@ -76,7 +74,7 @@ namespace GeoDistance.Controllers
                 // calculate distance
                 double distance = Address.CalculateDistance(latFrom, lngFrom, latTo, lngTo);
 
-                return $"{(distance / 1000).ToString("#.##")} Km";
+                return $"{Math.Round(distance / 1000)} Km and {Math.Round(distance % 1000)} m";
             }
         }
     }
